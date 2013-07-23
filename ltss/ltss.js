@@ -62,7 +62,7 @@ exports.compileString = function(source,callback) {
 
 exports.compileFile = function(file, callback) {
   fs.readFile(file,{encoding: 'utf8'},  function(err, data) {
-    exports.compileString(data,callback);
+    exports.compileString(data.toString(),callback);
   });
 }
 

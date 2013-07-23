@@ -9,7 +9,7 @@ Note that it isn't less so less features won't necessarily work
 ## Variables
 
 ```
-@color: #4D926F;
+@color: '#4D926F';
 
 #header {
   color: @color;
@@ -23,10 +23,10 @@ becomes
 
 ```
 #header {
-  color: #4D926F;
+  color: '#4D926F';
 }
 Label {
-  color: #4D926F;
+  color: '#4D926F';
 }
 ```
 
