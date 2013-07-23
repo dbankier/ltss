@@ -2,7 +2,7 @@
 
 An Alloy tss pre-processor inspired by less
 
-Not that it isn't less so less features won't necessarily work
+Note that it isn't less so less features won't necessarily work
 
 # Syntax
 
@@ -41,7 +41,7 @@ Label {
 }
 
 #header {
-  .padding;
+  .padding();
 }
 #footer {
   .padding('10px');
@@ -71,6 +71,13 @@ becomes
 
 ## CLI Usage
 
+Install
+
+```
+[sudo] npm install -g ltss
+```
+
+then
 
 ```
 ltss [filename.ltss]
