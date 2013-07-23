@@ -1,0 +1,13 @@
+.padding (@pad: '5dp') {
+  top: @pad,
+  bottom: @pad,
+  left: @pad,
+  right: @pad
+}
+
+#header {
+  .padding();
+}
+#footer {
+  .padding('10px');
+}

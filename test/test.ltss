@@ -1,0 +1,24 @@
+@variable1: 1;
+@test2  :  3
+
+.mixin1 (@arg1, @arg2) {
+  length: @arg1,
+  bredth: @arg2
+}
+
+.mixin2(@color: 'red') {
+  backgroundColor: @color
+}
+
+
+".class" : {
+  height: @variable1,
+  text: 'hello',
+  width: @test2,
+  .mixin2(),
+  .mixin1(20, 30)
+}
+
+".class2" : {
+  .mixin2("blue")
+}
