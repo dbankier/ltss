@@ -1,0 +1,12 @@
+".class" : {
+  height: 1,
+  text: 'hello',
+  width: 3,
+  backgroundColor: 'red',
+  length: 20,
+  bredth:  30
+}
+
+".class2" : {
+  backgroundColor: "blue"
+}

@@ -11,22 +11,22 @@ Note that it isn't less so less features won't necessarily work
 ```
 @color: '#4D926F';
 
-#header {
-  color: @color;
+"#header": {
+  color: @color
 }
-Label {
-  color: @color;
+"Label": {
+  color: @color
 }
 ```
 
 becomes
 
 ```
-#header {
-  color: '#4D926F';
+"#header": {
+  color: '#4D926F'
 }
-Label {
-  color: '#4D926F';
+"Label": {
+  color: '#4D926F'
 }
 ```
 
@@ -40,34 +40,70 @@ Label {
   right: @pad
 }
 
-#header {
-  .padding();
+"#header" : {
+  .padding()
 }
-#footer {
-  .padding('10px');
+"#footer" : {
+  .padding('10px')
 }
 ```
 
 becomes
 
 ```
-#header {
-  
+"#header" : {
   top: '5dp',
   bottom: '5dp',
   left: '5dp',
-  right: '5dp';
+  right: '5dp'
 }
-#footer {
-  
+"#footer" : {
   top: '10px',
   bottom: '10px',
   left: '10px',
-  right: '10px';
+  right: '10px'
 }
+```
+## Includes
+
+This
 
 ```
+@include("./mixin");
+@color: '#4D926F';
 
+"#header": {
+  color: @color
+}
+"Label": {
+  color: @color
+}
+```
+
+and the file **mixin.ltss** (in the mixin section above) becomes this:
+
+```
+"#header" : {
+  top: '5dp',
+  bottom: '5dp',
+  left: '5dp',
+  right: '5dp'
+}
+"#footer" : {
+  top: '10px',
+  bottom: '10px',
+  left: '10px',
+  right: '10px'
+}
+
+
+"#header": {
+  color: '#4D926F'
+}
+"Label": {
+  color: '#4D926F'
+}
+```
 
 ## CLI Usage
 
@@ -143,7 +179,6 @@ becomes
 }
 ```
 
-## TODO
+## Grunt Plugin
 
-An alloy.jmk file to automate the process...
-
+See this [repo](https://github.com/dbankier/grunt-ltss).

@@ -1,0 +1,12 @@
+"#header" : {
+  top: '5dp',
+  bottom: '5dp',
+  left: '5dp',
+  right: '5dp'
+}
+"#footer" : {
+  top: '10px',
+  bottom: '10px',
+  left: '10px',
+  right: '10px'
+}

@@ -1,0 +1,9 @@
+@include("./mixin");
+@color: '#4D926F';
+
+"#header": {
+  color: @color
+}
+"Label": {
+  color: @color
+}

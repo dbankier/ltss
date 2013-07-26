@@ -1,42 +1,38 @@
-var fs = require("fs");
+var fs = require("fs"),
+    path = require("path");
 
 var variables = {},
     mixins = {};
 
 function extractVariables(source) {
   //var regex = /^(@[a-zA-Z0-9]+)[ \t]*:[ \t]*(["']?.*?["']?)[ \t]*;?$/g
-  var regex = /(?:^|\n)(@\w+)[ \t]*:[ \t]*([^;\n]*);?/g
-  var match = regex.exec(source) 
-  while (match != null) {
+  var regex = /(?:^|\n)(@\w+)[ \t]*:[ \t]*([^;\n]*);?/g;
+  while (match = regex.exec(source)) {
     variables[match[1]] = match[2];
-    match = regex.exec(source);
   }
   source = source.replace(regex, "");
   return source;
 }
 
 function extractMixins(source) {
-  var regex = /(?:^|\n)([\w.#]*)[ \t]*\((.*?)\)[ \t]{([\s\S]*?)\n}/g
-  var match = regex.exec(source) 
-  while (match != null) {
+  var regex = /(?:^|\n)([\w.#]*)[ \t]*\((.*?)\)[ \t]\{([\s\S]*?)\n\}/g;
+  while (match = regex.exec(source)) {
     mixins[match[1]] = { 
       args: match[2].split(",").map(function(a) { 
         return a.trim().split(":").map(function(b) {
           return b.trim();
         });
       }), 
-      content: match[3]
+      content: match[3].trim()
     };
-    match = regex.exec(source);
   }
   source = source.replace(regex, "");
   return source;
 }
 
 function replaceMixins(source) {
-  var regex = /([\w.#]*)[ \t]*\((.*?)\)/g
-  var match = regex.exec(source) 
-  while (match != null) {
+  var regex = /([\w.#]*)[ \t]*\((.*?)\)/g;
+  while (match = regex.exec(source)) {
     var mixin = mixins[match[1]];
     var content = mixin.content;
     var args = match[2].split(",");
@@ -45,24 +41,31 @@ function replaceMixins(source) {
       content = content.replace(new RegExp(a[0], 'g'), idx>args.length -1 || !nonempty ? a[1] : args[idx]);
     });
     source = source.replace(match[0], content);
-    match = regex.exec(source);
   }
   return source;
-
 }
-exports.compileString = function(source,callback) {
+
+function injectIncludes(source, base_dir) {
+  var regex = /@include[ \t]*\([ \t]*['"](.*?)['"][ \t]*\)[ \t]*;?/g;
+  while (match = regex.exec(source)) {
+    source = source.replace(regex, fs.readFileSync(path.join(base_dir, match[1] + ".ltss")));
+  }
+  return source;
+}
+exports.compileString = function(source, base_dir ,callback) {
+  source = injectIncludes(source, base_dir);
   source = extractVariables(source);
   source = extractMixins(source);
   for (var key in variables) {
     source = source.replace(new RegExp(key, 'g'), variables[key]);
   }
   source = replaceMixins(source);
-  callback(null, source);
+  callback(null, source.trim());
 };
 
 exports.compileFile = function(file, callback) {
   fs.readFile(file,{encoding: 'utf8'},  function(err, data) {
-    exports.compileString(data.toString(),callback);
+    exports.compileString(data.toString(), path.dirname(file), callback);
   });
 }
 

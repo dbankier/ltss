@@ -5,9 +5,9 @@
   right: @pad
 }
 
-#header {
-  .padding();
+"#header" : {
+  .padding()
 }
-#footer {
-  .padding('10px');
+"#footer" : {
+  .padding('10px')
 }
