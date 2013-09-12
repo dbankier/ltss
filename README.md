@@ -10,12 +10,16 @@ Note that it isn't less so less features won't necessarily work
 
 ```
 @color: '#4D926F';
+@color2: 'rgba(255,0,0,0.5)';
 
 "#header": {
   color: @color
 }
 "Label": {
   color: @color
+}
+"#header2": {
+  color: @color2;
 }
 ```
 
@@ -27,6 +31,9 @@ becomes
 }
 "Label": {
   color: '#4D926F'
+}
+"#header2": {
+  color: 'rgba(255,0,0,0.5)';
 }
 ```
 
