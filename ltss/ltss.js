@@ -6,7 +6,7 @@ var variables = {},
 
 function extractVariables(source) {
   //var regex = /^(@[a-zA-Z0-9]+)[ \t]*:[ \t]*(["']?.*?["']?)[ \t]*;?$/g
-  var regex = /(?:^|\n)(@\w+)[ \t]*:[ \t]*([^;\n]*);?/g;
+  var regex = /(?:^|\n)(@[a-zA-Z0-9]+)[ \t]*:[ \t]*([^;\n]*);?/g;
   while (match = regex.exec(source)) {
     variables[match[1]] = match[2];
   }
@@ -56,10 +56,11 @@ exports.compileString = function(source, base_dir ,callback) {
   source = injectIncludes(source, base_dir);
   source = extractVariables(source);
   source = extractMixins(source);
-  for (var key in variables) {
-    source = source.replace(new RegExp(key, 'g'), variables[key]);
-  }
   source = replaceMixins(source);
+  for (var key in variables) {
+    source = source.replace(new RegExp('' + key + '(?=[\W;]+)', 'g'), variables[key]);
+  }
+  
   callback(null, source.trim());
 };
 
