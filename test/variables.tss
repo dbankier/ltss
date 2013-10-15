@@ -1,12 +1,12 @@
 "#header": {
-  color: '#4D926F';
+  color: '#4D926F'
 }
 "Label": {
-  color: '#4D926F';
+  color: '#4D926F'
 }
 "#header2": {
-  color: 'rgba(255,0,0,0.5)';
+  color: 'rgba(255,0,0,0.5)'
 }
 "#header3": {
-  color: '#4D926F';
+  color: '#FF00FF'
 }
