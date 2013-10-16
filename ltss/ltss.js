@@ -31,7 +31,7 @@ function extractMixins(source) {
 }
 
 function replaceMixins(source) {
-  var regex = /([\w.#]*)[ \t]*\((.*?)\)/g;
+  var regex = /([\w.#]*)[ \t]*\((.*?)\)/;
   while (match = regex.exec(source)) {
     var mixin = mixins[match[1]];
     var content = mixin.content;
@@ -46,7 +46,7 @@ function replaceMixins(source) {
 }
 
 function replaceVariables(source) {
-  var regex = /(@[\w]+)(?=[\W;]+)(?![\(:])/g;
+  var regex = /(@[\w]+)(?=[\W;,^:]+)(?![\(:])/;
   while (match = regex.exec(source)) {
     var name = match[1];
     var content = variables[name];

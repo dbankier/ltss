@@ -38,3 +38,11 @@ describe("combined test", function() {
   });
 });
 
+describe("many variables test", function() {
+  it("should parse", function(done) {
+    ltss.compileFile('./test/manyVariables.ltss',function(err,data) {
+      assert.equal(data, fs.readFileSync('./test/manyVariables.tss').toString());
+      done();
+    });
+  });
+});
