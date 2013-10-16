@@ -31,7 +31,7 @@ function extractMixins(source) {
 }
 
 function replaceMixins(source) {
-  var regex = /([\w.#]*)[ \t]*\((.*?)\)/g;
+  var regex = /([\w.#]*)[ \t]*\((.*?)\)/;
   while (match = regex.exec(source)) {
     var mixin = mixins[match[1]];
     var content = mixin.content;
@@ -45,21 +45,33 @@ function replaceMixins(source) {
   return source;
 }
 
-function injectIncludes(source, base_dir) {
-  var regex = /@include[ \t]*\([ \t]*['"](.*?)['"][ \t]*\)[ \t]*;?/g;
+function replaceVariables(source) {
+  var regex = /(@[\w]+)(?=[\W;,^:]+)(?![\(:])/;
   while (match = regex.exec(source)) {
-    source = source.replace(regex, fs.readFileSync(path.join(base_dir, match[1] + ".ltss")));
+    var name = match[1];
+    var content = variables[name];
+    source = source.replace(match[0], content);
   }
   return source;
 }
+
+function injectIncludes(source, base_dir) {
+  var regex = /@include[ \t]*\([ \t]*['"](.*?)['"][ \t]*\)[ \t]*;?/;
+  while (match = regex.exec(source)) {
+    source = source.replace(match[0], fs.readFileSync(path.join(base_dir, match[1] + ".ltss")));
+  }
+  return source;
+}
+
 exports.compileString = function(source, base_dir ,callback) {
+  //reset state
+  variables = {}; mixins = {};
+
   source = injectIncludes(source, base_dir);
   source = extractVariables(source);
   source = extractMixins(source);
   source = replaceMixins(source);
-  for (var key in variables) {
-    source = source.replace(new RegExp('' + key + '(?=[\W;]+)', 'g'), variables[key]);
-  }
+  source = replaceVariables(source);
   
   callback(null, source.trim());
 };

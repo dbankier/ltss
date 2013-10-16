@@ -1,0 +1,41 @@
+'#sideContent': {
+  right: 100
+}
+
+'#detailView': {
+  top: 0,
+  left: 0,
+  bottom: 0,
+  right: 100
+}
+
+'#sideMenuBar': {
+  width: 100,
+  right: 0,
+  top: 0,
+  bottom: 0
+}
+
+'.example': {
+  width: 50
+}
+
+'#appLogo[platform=android]': {
+  backgroundImage: '/images/logo.png'
+}
+'#appLogo[platform=ios]': {
+  image: '/images/logo.png'
+}
+
+'#appLogo': {
+  top: 5,
+  bottom: 100,
+  width: 50,
+  height: 50
+}
+
+'Button': {
+  width: 50,
+  height: 50,
+  bottom: 16
+}
