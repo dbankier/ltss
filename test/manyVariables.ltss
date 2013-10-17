@@ -1,0 +1,46 @@
+@menuSideWidth: 100;
+@appLogoImage: '/images/logo.png';
+@menuButtonWidth: 50;
+
+'#sideContent': {
+  right: @menuSideWidth
+}
+
+'#detailView': {
+  top: 0,
+  left: 0,
+  bottom: 0,
+  right: @menuSideWidth
+}
+
+'#sideMenuBar': {
+  width: @menuSideWidth,
+  right: 0,
+  top: 0,
+  bottom: 0
+}
+
+'.example': {
+  width: 50
+}
+
+'#appLogo[platform=android]': {
+  backgroundImage: @appLogoImage
+}
+'#appLogo[platform=ios]': {
+  image: @appLogoImage
+}
+
+'#appLogo': {
+  top: 5,
+  bottom: @menuSideWidth,
+  width: @menuButtonWidth,
+  height: @menuButtonWidth
+}
+
+'Button': {
+  width: @menuButtonWidth,
+  height: @menuButtonWidth,
+  bottom: 16
+}
+

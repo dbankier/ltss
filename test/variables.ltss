@@ -1,16 +1,16 @@
 @color: '#4D926F';
 @color2: 'rgba(255,0,0,0.5)';
-@color3: '#4D926F';
+@color3: '#FF00FF';
 
 "#header": {
-  color: @color;
+  color: @color
 }
 "Label": {
-  color: @color;
+  color: @color
 }
 "#header2": {
-  color: @color2;
+  color: @color2
 }
 "#header3": {
-  color: @color3;
+  color: @color3
 }

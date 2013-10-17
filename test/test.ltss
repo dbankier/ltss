@@ -1,5 +1,5 @@
 @variable1: 1;
-@test2  :  3
+@test2  :  3;
 
 .mixin1 (@arg1, @arg2) {
   length: @arg1,

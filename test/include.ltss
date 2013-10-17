@@ -1,9 +1,10 @@
 @include("./mixin");
+@include("./vars");
 @color: '#4D926F';
 
 "#header": {
   color: @color
 }
 "Label": {
-  color: @color
+  color: @var2
 }
