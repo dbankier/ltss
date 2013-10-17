@@ -186,6 +186,19 @@ becomes
 }
 ```
 
+## Contributors
+
+```
+ project  : ltss
+ repo age : 3 months
+ active   : 9 days
+ commits  : 14
+ files    : 16
+ authors  :
+     9  David Bankier           64.3%
+     5  Ashton Williams         35.7%
+```
+
 ## Grunt Plugin
 
 See this [repo](https://github.com/dbankier/grunt-ltss).
