@@ -4,6 +4,11 @@ var fs = require("fs"),
 var variables = {},
     mixins = {};
 
+function UnknownMixinException(message) {
+   this.message = message;
+   this.name = "UnknownMixinException";
+}
+
 function extractVariables(source) {
   //var regex = /^(@[a-zA-Z0-9]+)[ \t]*:[ \t]*(["']?.*?["']?)[ \t]*;?$/g
   var regex = /(?:^|\n)(@[a-zA-Z0-9]+)[ \t]*:[ \t]*([^;\n]*);?/g;
@@ -17,12 +22,12 @@ function extractVariables(source) {
 function extractMixins(source) {
   var regex = /(?:^|\n)([\w.#]*)[ \t]*\((.*?)\)[ \t]\{([\s\S]*?)\n\}/g;
   while (match = regex.exec(source)) {
-    mixins[match[1]] = { 
-      args: match[2].split(",").map(function(a) { 
+    mixins[match[1]] = {
+      args: match[2].split(",").map(function(a) {
         return a.trim().split(":").map(function(b) {
           return b.trim();
         });
-      }), 
+      }),
       content: match[3].trim()
     };
   }
@@ -34,13 +39,18 @@ function replaceMixins(source) {
   var regex = /([\w.#]*)[ \t]*\((.*?)\)/;
   while (match = regex.exec(source)) {
     var mixin = mixins[match[1]];
-    var content = mixin.content;
-    var args = match[2].split(",");
-    var nonempty = match[2].trim().length > 0;
-    mixin.args.forEach(function(a,idx) {
-      content = content.replace(new RegExp(a[0], 'g'), idx>args.length -1 || !nonempty ? a[1] : args[idx]);
-    });
-    source = source.replace(match[0], content);
+
+    if (undefined === mixin) {
+      throw new UnknownMixinException('Could not find mixin named "' + match[1] + '"');
+    } else {
+      var content = mixin.content;
+      var args = match[2].split(",");
+      var nonempty = match[2].trim().length > 0;
+      mixin.args.forEach(function(a,idx) {
+        content = content.replace(new RegExp(a[0], 'g'), idx>args.length -1 || !nonempty ? a[1] : args[idx]);
+      });
+      source = source.replace(match[0], content);
+    }
   }
   return source;
 }
@@ -72,7 +82,7 @@ exports.compileString = function(source, base_dir ,callback) {
   source = extractMixins(source);
   source = replaceMixins(source);
   source = replaceVariables(source);
-  
+
   callback(null, source.trim());
 };
 
