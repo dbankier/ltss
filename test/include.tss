@@ -1,4 +1,5 @@
 "#header" : {
+  title: L('test'),
   top: '5dp',
   bottom: '5dp',
   left: '5dp',
@@ -10,7 +11,6 @@
   left: '10px',
   right: '10px'
 }
-
 
 "#header": {
   color: '#4D926F'
