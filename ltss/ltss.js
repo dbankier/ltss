@@ -55,6 +55,24 @@ function replaceMixins(source) {
   return source;
 }
 
+function replaceI18n(source) {
+  var regex = /L[ \t]*\((.*?)\)/;
+  while (match = regex.exec(source)) {
+    var content = '__L__' + match[1] + '__L__';
+    source = source.replace(match[0], content);
+  }
+  return source;
+}
+
+function resetI18n(source) {
+  var regex = /__L__([ \t]*.*?)__L__/;
+  while (match = regex.exec(source)) {
+    var content = 'L(' + match[1] + ')';
+    source = source.replace(match[0], content);
+  }
+  return source;
+}
+
 function replaceVariables(source) {
   var regex = /(@[\w]+)(?=[\W;,^:]+)(?![\(:])/;
   while (match = regex.exec(source)) {
@@ -80,7 +98,9 @@ exports.compileString = function(source, base_dir ,callback) {
   source = injectIncludes(source, base_dir);
   source = extractVariables(source);
   source = extractMixins(source);
+  source = replaceI18n(source);
   source = replaceMixins(source);
+  source = resetI18n(source);
   source = replaceVariables(source);
 
   callback(null, source.trim());

@@ -1,4 +1,5 @@
 "#header" : {
+  title: L('test'),
   top: '5dp',
   bottom: '5dp',
   left: '5dp',

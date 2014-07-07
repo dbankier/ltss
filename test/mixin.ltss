@@ -6,6 +6,7 @@
 }
 
 "#header" : {
+  title: L('test'),
   .padding()
 }
 "#footer" : {
