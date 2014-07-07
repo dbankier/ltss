@@ -1,8 +1,11 @@
 # Less TSS
 
+
 An Alloy tss pre-processor inspired by less
 
-Note that it isn't less so less features won't necessarily work
+__NOTE:__ ltss started as a quick hack/poc and never really improved on it. If you are looking for something more robust, feature rich and SASS like, see [STSS](https://github.com/RonaldTreur/STSS).
+
+__NOTE:__ that it isn't less so less features won't necessarily work
 
 # Syntax
 
